@@ -8,7 +8,10 @@ public class App {
 	
        UserService userService = new UserService();
        
+       
+       userService.create();
        userService.getAll();
+   
 	}
 
 }
