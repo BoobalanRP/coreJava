@@ -2,6 +2,8 @@ package in.boomibalan.fertagriboomi;
 
 import in.boomibalan.fertagriboomi.dao.UserDAO;
 import in.boomibalan.fertagriboomi.model.User;
+import in.boomibalan.fertagriboomi.model.Task;
+import in.boomibalan.fertagriboomi.service.TaskService;
 import in.boomibalan.fertagriboomi.service.UserService;
 
 public class App {
@@ -20,11 +22,37 @@ public class App {
 			newUser.setActive(true);
 
 			userService.create(newUser);
-			userService.getAll();
+//			userService.getAll();
 		} catch (Exception e) {
 
 			e.printStackTrace();
 		}
+
+//		task
+		
+		try {
+			TaskService taskService = new TaskService();
+
+			Task newTask = new Task();
+
+			newTask.setId(753);
+			newTask.setTaskName("Locogy");
+			newTask.setDueDate("25/10/2023");
+			newTask.setActive(true);
+
+			taskService.create(newTask);
+			taskService.update();
+			taskService.delete();
+			taskService.findById();
+			taskService.getAll();
+			
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+		
+	
 
 	}
 
