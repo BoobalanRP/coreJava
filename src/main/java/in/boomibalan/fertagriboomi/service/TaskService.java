@@ -1,8 +1,12 @@
 package in.boomibalan.fertagriboomi.service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import in.boomibalan.fertagriboomi.dao.TaskDAO;
 
 import in.boomibalan.fertagriboomi.model.Task;
+import in.boomibalan.fertagriboomi.validator.TaskValidator;
 
 public class TaskService {
 	
@@ -22,7 +26,8 @@ public class TaskService {
 	}
 
 	
-	public void create(Task newTask){
+	public void create(Task newTask) throws Exception{
+		TaskValidator.validate(newTask);
 		TaskDAO userDao = new TaskDAO();
 		userDao.create(newTask);
       
@@ -32,7 +37,11 @@ public class TaskService {
 
 		Task newTask2 = new Task();
 		newTask2.setId(753);
-		newTask2.setDueDate("14/09/2023");
+	
+		
+		String userInput = "23/00/2023";
+	     LocalDate convertedDate = TaskService.convertToDate(userInput);
+		newTask2.setDueDate(convertedDate);
 		newTask2.setTaskName("Musiryl");
 		newTask2.setActive(true);
 		
@@ -51,6 +60,15 @@ public class TaskService {
 		taskDao.findById(753);
 	}
 	
-	
+	public static LocalDate convertToDate(String dateString) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		try {
+			LocalDate localDate = LocalDate.parse(dateString, formatter);
+			return localDate;
+		} catch (Exception e) {
+			System.out.println("Invalid date format!");
+			return null;
+		}
+	}
 
 }

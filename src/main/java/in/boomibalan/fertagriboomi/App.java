@@ -1,5 +1,7 @@
 package in.boomibalan.fertagriboomi;
 
+import java.time.LocalDate;
+
 import in.boomibalan.fertagriboomi.dao.UserDAO;
 import in.boomibalan.fertagriboomi.model.User;
 import in.boomibalan.fertagriboomi.model.Task;
@@ -29,7 +31,7 @@ public class App {
 		}
 
 //		task
-		
+
 		try {
 			TaskService taskService = new TaskService();
 
@@ -37,7 +39,12 @@ public class App {
 
 			newTask.setId(753);
 			newTask.setTaskName("Locogy");
-			newTask.setDueDate("25/10/2023");
+			
+			
+			String userInput = "23/10/2023";
+			LocalDate convertedDate = TaskService.convertToDate(userInput);
+			newTask.setDueDate(convertedDate);
+			
 			newTask.setActive(true);
 
 			taskService.create(newTask);
@@ -45,14 +52,11 @@ public class App {
 			taskService.delete();
 			taskService.findById();
 			taskService.getAll();
-			
 
 		} catch (Exception e) {
 
 			e.printStackTrace();
 		}
-		
-	
 
 	}
 

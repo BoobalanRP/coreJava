@@ -1,8 +1,10 @@
 package in.boomibalan.fertagriboomi.model;
 
+import java.time.LocalDate;
+
 public class Task {
 	int id;
-	String dueDate;
+	LocalDate dueDate;
 	String taskName;
 	boolean isActive;
 	
@@ -13,11 +15,11 @@ public class Task {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getDueDate() {
+	public LocalDate getDueDate() {
 		return dueDate;
 	}
-	public void setDueDate(String dueDate) {
-		this.dueDate = dueDate;
+	public void setDueDate(LocalDate convertedDate) {
+		this.dueDate = convertedDate;
 	}
 	public String getTaskName() {
 		return taskName;
