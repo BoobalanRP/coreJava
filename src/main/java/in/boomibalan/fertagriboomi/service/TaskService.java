@@ -9,7 +9,7 @@ import in.boomibalan.fertagriboomi.model.Task;
 import in.boomibalan.fertagriboomi.validator.TaskValidator;
 
 public class TaskService {
-	
+
 	public Task[] getAll() {
 
 		TaskDAO userDao = new TaskDAO();
@@ -25,41 +25,39 @@ public class TaskService {
 		return taskList;
 	}
 
-	
-	public void create(Task newTask) throws Exception{
+	public void create(Task newTask) throws Exception {
 		TaskValidator.validate(newTask);
 		TaskDAO userDao = new TaskDAO();
 		userDao.create(newTask);
-      
+
 	}
-	
+
 	public void update() {
 
 		Task newTask2 = new Task();
 		newTask2.setId(753);
-	
-		
-		String userInput = "23/00/2023";
-	     LocalDate convertedDate = TaskService.convertToDate(userInput);
+
+		String userInput = "30/02/2024";
+		LocalDate convertedDate = TaskService.convertToDate(userInput);
 		newTask2.setDueDate(convertedDate);
 		newTask2.setTaskName("Musiryl");
 		newTask2.setActive(true);
-		
+
 		TaskDAO taskDao = new TaskDAO();
-		taskDao.update(753,newTask2);
-		
+		taskDao.update(753, newTask2);
+
 	}
-	
+
 	public void delete() {
 		TaskDAO taskDao = new TaskDAO();
 		taskDao.delete(753);
 	}
-	
+
 	public void findById() {
 		TaskDAO taskDao = new TaskDAO();
 		taskDao.findById(753);
 	}
-	
+
 	public static LocalDate convertToDate(String dateString) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		try {

@@ -1,15 +1,14 @@
 package in.fertagriboomi.boomibalan;
 
-
 import in.boomibalan.fertagriboomi.exception.ValidationException;
+import in.boomibalan.fertagriboomi.service.UserService;
+import in.boomibalan.fertagriboomi.model.*;
+
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-
-import in.boomibalan.fertagriboomi.model.User;
-import in.boomibalan.fertagriboomi.service.UserService;
 
 public class TestCreateUser {
 	@Test
@@ -57,14 +56,13 @@ public class TestCreateUser {
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			userService.create(newUser);
 		});
-		
+
 		String exceptedMessage = "email cannot be empty or null";
 		String actualMessage = exception.getMessage();
 
 		assertTrue(exceptedMessage.equals(actualMessage));
 	}
-	
-	
+
 	@Test
 	public void testUserEmailWithEmptyString() {
 		UserService userService = new UserService();
@@ -80,13 +78,13 @@ public class TestCreateUser {
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			userService.create(newUser);
 		});
-		
+
 		String exceptedMessage = "email cannot be empty or null";
 		String actualMessage = exception.getMessage();
 
 		assertTrue(exceptedMessage.equals(actualMessage));
 	}
-	
+
 //	password
 	@Test
 	public void testUserPasswordWithEmptyString() {
@@ -103,13 +101,13 @@ public class TestCreateUser {
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			userService.create(newUser);
 		});
-		
+
 		String exceptedMessage = "password cannot be empty or null";
 		String actualMessage = exception.getMessage();
 
 		assertTrue(exceptedMessage.equals(actualMessage));
 	}
-	
+
 	@Test
 	public void testUserPasswordWithNull() {
 		UserService userService = new UserService();
@@ -125,12 +123,13 @@ public class TestCreateUser {
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			userService.create(newUser);
 		});
-		
+
 		String exceptedMessage = "password cannot be Null or Empty";
 		String actualMessage = exception.getMessage();
 
 		assertTrue(exceptedMessage.equals(actualMessage));
 	}
+
 //	firstName
 	@Test
 	public void testUserFirstNameWithEmptyString() {
@@ -147,13 +146,13 @@ public class TestCreateUser {
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			userService.create(newUser);
 		});
-		
+
 		String exceptedMessage = "firstName cannot be Null or Empty";
 		String actualMessage = exception.getMessage();
 
 		assertTrue(exceptedMessage.equals(actualMessage));
 	}
-	
+
 	@Test
 	public void testUserFirstNameWithNull() {
 		UserService userService = new UserService();
@@ -169,7 +168,7 @@ public class TestCreateUser {
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			userService.create(newUser);
 		});
-		
+
 		String exceptedMessage = "firstName cannot be Null or Empty";
 		String actualMessage = exception.getMessage();
 

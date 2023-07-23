@@ -19,7 +19,7 @@ public class TestCreateTask {
 		TaskService taskService = new TaskService();
 		Task newTask = new Task();
 		newTask.setId(12345);
-		String userInput = "23/07/2023";
+		String userInput = "23/06/2023";
 		newTask.setTaskName("Open the Door");
 		LocalDate convertedDate = TaskService.convertToDate(userInput);
 		newTask.setDueDate(convertedDate);
