@@ -75,7 +75,7 @@ public class UserDAO implements UserInterface {
 	}
 
 	@Override
-	public void update(int id, User updatedUser) {
+	public void update(int id, User updatedUser) throws RuntimeException{
 		Set<User> userList = UserList.listOfUsers;
 		for (User user : userList) {
 			if (user.getId() == id) {
