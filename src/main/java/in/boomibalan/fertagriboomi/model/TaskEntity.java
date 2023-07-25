@@ -42,6 +42,6 @@ public class TaskEntity {
 
 	@Override
 	public String toString() {
-		return "Task [id=" + id + ", dueDate=" + dueDate + ", taskName=" + taskName + ", isActive=" + isActive + "]";
+		return "Task : [id=" + id + ", dueDate=" + dueDate + ", taskName=" + taskName + ", isActive=" + isActive + "]";
 	}
 }

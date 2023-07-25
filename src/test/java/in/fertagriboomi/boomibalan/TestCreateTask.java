@@ -13,22 +13,20 @@ import in.boomibalan.fertagriboomi.exception.ValidationException;
 import in.boomibalan.fertagriboomi.service.TaskService;
 
 public class TestCreateTask {
-	
+
 	@Test
 	public void testCreateTaskWithValidData() {
 		TaskService taskService = new TaskService();
 		Task newTask = new Task();
-		newTask.setId(12345);
-		String userInput = "23/06/2023";
-		newTask.setTaskName("Open the Door");
+		String userInput = "13/10/2024";
+		newTask.setTaskName("Jumping");
 		LocalDate convertedDate = TaskService.convertToDate(userInput);
 		newTask.setDueDate(convertedDate);
-		newTask.setActive(true);
 		assertDoesNotThrow(() -> {
 			taskService.create(newTask);
 		});
 	}
-	
+
 	@Test
 	public void testCreateTaskWithInvalidData() {
 		TaskService taskService = new TaskService();
@@ -39,7 +37,7 @@ public class TestCreateTask {
 		String actualMessage = exception.getMessage();
 		assertTrue(expectedMessage.equals(actualMessage));
 	}
-	
+
 	@Test
 	public void testCreateTaskWithTaskNameNull() {
 		TaskService taskService = new TaskService();
@@ -57,7 +55,7 @@ public class TestCreateTask {
 		String actualMessage = exception.getMessage();
 		assertTrue(expectedMessage.equals(actualMessage));
 	}
-	
+
 	@Test
 	public void testCreateTaskWithTaskNameEmpty() {
 		TaskService taskService = new TaskService();
@@ -75,7 +73,7 @@ public class TestCreateTask {
 		String actualMessage = exception.getMessage();
 		assertTrue(expectedMessage.equals(actualMessage));
 	}
-	
+
 	@Test
 	public void testCreateTaskWithInvalidDate() {
 		TaskService taskService = new TaskService();

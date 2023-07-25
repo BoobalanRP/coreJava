@@ -2,6 +2,8 @@ package in.boomibalan.fertagriboomi.service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import in.boomibalan.fertagriboomi.dao.TaskDAO;
@@ -16,11 +18,13 @@ public class TaskService {
 
 		TaskDAO userDao = new TaskDAO();
 		Set<Task> taskList = userDao.findAll();
-
-		for (Task task : taskList) {
-			System.out.println(task);
+		Iterator<Task> iterator = taskList.iterator();
+		// int count = 0;
+		while (iterator.hasNext()) {
+			Task user = iterator.next();
+			System.out.println(user);
+			// System.out.println(count++);
 		}
-
 		return taskList;
 	}
 
@@ -52,9 +56,9 @@ public class TaskService {
 		taskDao.delete(id);
 	}
 
-	public void findById() {
+	public Task findById(int newId) {
 		TaskDAO taskDao = new TaskDAO();
-		taskDao.findById(753);
+		return taskDao.findById(newId);
 	}
 
 	public static LocalDate convertToDate(String dateString) {
@@ -66,6 +70,11 @@ public class TaskService {
 			System.out.println("Invalid date format!");
 			return null;
 		}
+	}
+
+	public List<Task> findByDueDate(LocalDate date) {
+		TaskDAO taskDao = new TaskDAO();
+		return taskDao.findDueDate(date);
 	}
 
 }

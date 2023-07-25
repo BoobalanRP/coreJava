@@ -19,11 +19,11 @@ public class UserService {
 		UserDAO userDao = new UserDAO();
 		Set<User> userList = userDao.findAll();
 		Iterator<User> iterator = userList.iterator();
-		//int count = 0;
+		// int count = 0;
 		while (iterator.hasNext()) {
 			User user = iterator.next();
 			System.out.println(user);
-			//System.out.println(count++);
+			// System.out.println(count++);
 		}
 		return userList;
 	}
@@ -36,6 +36,7 @@ public class UserService {
 
 	public void update(int id, User newUpdate) throws ValidationException {
 		UserDAO userDAO = new UserDAO();
+		UserValidator.validate(newUpdate);
 		userDAO.update(id, newUpdate);
 	}
 
@@ -43,15 +44,15 @@ public class UserService {
 		UserDAO userDao = new UserDAO();
 		userDao.delete(id);
 	}
-	
-	
+
 	public User findById(int newId) {
 		UserDAO userDao = new UserDAO();
 		return userDao.findById(newId);
-		
+
 	}
-	public void findByEmail(String Email) {
+
+	public User findByEmail(String Email) {
 		UserDAO userDao = new UserDAO();
-		userDao.findByEmail(Email);
+		return userDao.findByEmail(Email);
 	}
 }

@@ -75,27 +75,63 @@ public class UserDAO implements UserInterface {
 	}
 
 	@Override
-	public void update(int id, User updatedUser) throws RuntimeException{
-		Set<User> userList = UserList.listOfUsers;
-		for (User user : userList) {
-			if (user.getId() == id) {
-				user.setFirstName(updatedUser.getFirstName());
-				user.setLastName(updatedUser.getLastName());
-				user.setEmail(updatedUser.getEmail());
-				user.setPassword(updatedUser.getPassword());
-				user.setActive(true);
-				break;
+	public void update(int id, User updatedUser) throws RuntimeException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+
+		try {
+			String query = "UPDATE users SET first_name=?, last_name=? WHERE is_active=1 AND id=?";
+			conn = ConnectionUtil.getConnection();
+			ps = conn.prepareStatement(query);
+
+			ps.setString(1, updatedUser.getFirstName());
+			ps.setString(2, updatedUser.getLastName());
+			ps.setInt(3, id);
+
+			int rowsUpdated = ps.executeUpdate();
+
+			if (rowsUpdated > 0) {
+				System.out.println("User with ID " + id + " has been updated successfully.");
+			} else {
+				System.out.println("User with ID " + id + " not found.");
 			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+			throw new RuntimeException();
+		} finally {
+			ConnectionUtil.close(conn, ps);
 		}
 	}
 
 	@Override
-	public void delete(int id) {
-		Set<User> userList = UserList.listOfUsers;
-		for (User user : userList) {
-			if (user != null && user.getId() == id) {
-				user.setActive(false);
+	public void delete(int id) throws RuntimeException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+
+		try {
+			String query = "UPDATE users SET is_active=? WHERE id=?";
+			conn = ConnectionUtil.getConnection();
+			ps = conn.prepareStatement(query);
+
+			ps.setBoolean(1, false); // Deactivate the user by setting is_active to false
+			ps.setInt(2, id);
+
+			int rowsUpdated = ps.executeUpdate();
+
+			if (rowsUpdated > 0) {
+				System.out.println("User with ID " + id + " has been deactivated successfully.");
+			} else {
+				System.out.println("User with ID " + id + " not found.");
 			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+			throw new RuntimeException();
+		} finally {
+			ConnectionUtil.close(conn, ps);
 		}
 	}
 
@@ -145,13 +181,45 @@ public class UserDAO implements UserInterface {
 
 	@Override
 	public User findByEmail(String email) {
-		Set<User> userList = UserList.listOfUsers;
-		for (User user : userList) {
-			if (user != null && user.getEmail() == email) {
-				return user;
+//		Set<User> userList = UserList.listOfUsers;
+//		for (User user : userList) {
+//			if (user != null && user.getEmail() == email) {
+//				return user;
+//			}
+//		}
+//		return null;
+		Connection conn = null;
+		PreparedStatement ps = null;
+		User user = null;
+		ResultSet rs = null;
+
+		try {
+			String query = "SELECT * from users WHERE is_active = 1 AND email=?";
+			conn = ConnectionUtil.getConnection();
+			ps = conn.prepareStatement(query);
+
+			ps.setString(1, email);
+
+			rs = ps.executeQuery();
+
+			if (rs.next()) {
+				user = new User();
+				user.setId(rs.getInt("id"));
+				user.setFirstName(rs.getString("first_name"));
+				user.setLastName(rs.getString("last_name"));
+				user.setEmail(rs.getString("email"));
+				user.setPassword(rs.getString("password"));
+				user.setActive(rs.getBoolean("is_active"));
 			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+			throw new RuntimeException();
+		} finally {
+			ConnectionUtil.close(conn, ps, rs);
 		}
-		return null;
+		return user;
 	}
 
 	@Override
@@ -166,4 +234,5 @@ public class UserDAO implements UserInterface {
 
 		return countOfUsers;
 	}
+
 }
