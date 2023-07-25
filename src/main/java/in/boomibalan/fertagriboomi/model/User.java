@@ -1,5 +1,5 @@
 package in.boomibalan.fertagriboomi.model;
 
-public class User extends UserEntity {
+public class User extends UserEntity{
 
 }

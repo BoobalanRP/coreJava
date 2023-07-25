@@ -3,6 +3,7 @@ package in.boomibalan.fertagriboomi.interfaces;
 import java.util.*;
 
 import in.boomibalan.fertagriboomi.model.User;
+import in.boomibalan.fertagriboomi.model.UserEntity;
 
 public interface Base<T> {
 
@@ -14,6 +15,6 @@ public interface Base<T> {
 
 	public abstract void update(int id, T newT);
 
-	public abstract <T> T findById(int id);
+	public abstract T findById(int id);
 
 }

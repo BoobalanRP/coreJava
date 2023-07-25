@@ -1,35 +1,35 @@
 package in.boomibalan.fertagriboomi.dao;
 
+import java.util.Set;
+
+import in.boomibalan.fertagriboomi.interfaces.TaskInterface;
 import in.boomibalan.fertagriboomi.model.Task;
 import in.boomibalan.fertagriboomi.model.User;
 
+public class TaskDAO implements TaskInterface {
 
-
-public class TaskDAO {
-
-	public Task[] findAll() {
-		Task[] taskList = TaskList.listOfTasks;
+	public Set<Task> findAll() {
+		Set<Task> taskList = TaskList.listOfTasks;
 		return taskList;
 	}
 
 	public void create(Task newList) {
-		Task[] arr = TaskList.listOfTasks;
-		for (int i = 0; i < arr.length; i++) {
-			Task task = arr[i];
-			if (task == null) {
-				arr[i] = newList;
+		Set<Task> arrList = TaskList.listOfTasks;
+		for (Task task : arrList) {
+			Task taskArr = task;
+			if (taskArr == null) {
+				task = newList;
 				break;
 			}
 		}
 
 	}
-	
+
 	public void update(int id, Task updateTask) {
-		
-		
-		Task[] arr = TaskList.listOfTasks;
-		for (int i = 0; i < arr.length; i++) {
-			Task task = arr[i];
+
+		Set<Task> arrList = TaskList.listOfTasks;
+		for (Task task : arrList) {
+			Task taskArr = task;
 			if (task == null) {
 				continue;
 			}
@@ -46,15 +46,15 @@ public class TaskDAO {
 		}
 
 	}
-	
+
 	public void delete(int taskId) {
-		Task[] arr = TaskList.listOfTasks;
-		for (int i = 0; i < arr.length; i++) {
-			Task task = arr[i];
+		Set<Task> arrList = TaskList.listOfTasks;
+		for (Task task : arrList) {
+			Task taskArr = task;
 			if (task == null) {
 				continue;
 			}
-			
+
 			if (task.getId() == taskId) {
 				task.setActive(false);
 				break;
@@ -63,13 +63,11 @@ public class TaskDAO {
 	}
 
 	public Task findById(int taskId) {
-		Task[] taskList = TaskList.listOfTasks;
+		Set<Task> arrList = TaskList.listOfTasks;
 		Task taskMatch = null;
-		
-	
 
-		for (int i = 0; i < taskList.length; i++) {
-			Task task = taskList[i];
+		for (Task task : arrList) {
+			Task taskArr = task;
 			if (task == null) {
 				continue;
 			}
@@ -78,12 +76,15 @@ public class TaskDAO {
 				break;
 			}
 		}
-		
-		System.out.println("kl"+taskMatch);
+
+		System.out.println("kl" + taskMatch);
 		return taskMatch;
 	}
-	
-	
-	
+
+	@Override
+	public void create(User newUser) {
+		// TODO Auto-generated method stub
+
+	}
 
 }

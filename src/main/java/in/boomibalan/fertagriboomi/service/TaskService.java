@@ -2,24 +2,23 @@ package in.boomibalan.fertagriboomi.service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Set;
 
 import in.boomibalan.fertagriboomi.dao.TaskDAO;
 
 import in.boomibalan.fertagriboomi.model.Task;
+import in.boomibalan.fertagriboomi.model.User;
 import in.boomibalan.fertagriboomi.validator.TaskValidator;
 
 public class TaskService {
 
-	public Task[] getAll() {
+	public Set<Task> getAll() {
 
 		TaskDAO userDao = new TaskDAO();
+		Set<Task> taskList = userDao.findAll();
 
-		Task[] taskList = userDao.findAll();
-
-		for (int i = 0; i < taskList.length; i++) {
-
-			System.out.println(taskList[i]);
-
+		for (Task task : taskList) {
+			System.out.println(task);
 		}
 
 		return taskList;
@@ -32,25 +31,25 @@ public class TaskService {
 
 	}
 
-	public void update() {
+	public void update(int id, Task newUpdate) {
 
-		Task newTask2 = new Task();
-		newTask2.setId(753);
-
-		String userInput = "30/02/2024";
-		LocalDate convertedDate = TaskService.convertToDate(userInput);
-		newTask2.setDueDate(convertedDate);
-		newTask2.setTaskName("Musiryl");
-		newTask2.setActive(true);
+//		Task newTask2 = new Task();
+//		newTask2.setId(753);
+//
+//		String userInput = "30/02/2024";
+//		LocalDate convertedDate = TaskService.convertToDate(userInput);
+//		newTask2.setDueDate(convertedDate);
+//		newTask2.setTaskName("Musiryl");
+//		newTask2.setActive(true);
 
 		TaskDAO taskDao = new TaskDAO();
-		taskDao.update(753, newTask2);
+		taskDao.update(id, newUpdate);
 
 	}
 
-	public void delete() {
+	public void delete(int id) {
 		TaskDAO taskDao = new TaskDAO();
-		taskDao.delete(753);
+		taskDao.delete(id);
 	}
 
 	public void findById() {

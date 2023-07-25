@@ -1,6 +1,6 @@
 package in.boomibalan.fertagriboomi.model;
 
-public abstract class UserEntity implements Comparable<UserEntity> {
+public abstract class UserEntity implements Comparable<User> {
 	private int id;
 	private String firstName;
 	private String lastName;
@@ -55,17 +55,21 @@ public abstract class UserEntity implements Comparable<UserEntity> {
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
-	
 
 	@Override
 	public String toString() {
-		return "UserEntity [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+		return "user [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
 				+ ", password=" + password + ", isActive=" + isActive + "]";
 	}
 
-	@Override
-	public int compareTo(UserEntity userEmail) {
-		return this.getEmail().compareTo(userEmail.getEmail());
+	public int compareTo(User o) {
+		if (this.id == o.getId()) {
+			return 0;
+		} else if (this.id > o.getId()) {
+			return 1;
+		} else {
+			return -1;
+		}
 	}
 
 	public String fullName() {
